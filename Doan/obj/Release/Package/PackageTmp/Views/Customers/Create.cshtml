@@ -1,0 +1,123 @@
+﻿@model Doan.Models.Customer
+
+@{
+    ViewBag.Title = "Create";
+    Layout = null;
+}
+
+
+    <div class="col-lg-6 col-12">
+        <div class="customer_details">
+            <h3>Billing details</h3>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+        <div class="customar__field">
+            <div class="margin_between">
+                <div class="input_box space_between">
+                    <label>@Html.LabelFor(model => model.FirstName)</label>
+                    @Html.EditorFor(model => model.FirstName)
+                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                </div>
+                <div class="input_box space_between">
+                    <label>@Html.LabelFor(model => model.LastName)</label>
+                    @Html.EditorFor(model => model.LastName)
+                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="input_box">
+                <label>  @Html.LabelFor(model => model.Password)</label>
+                @Html.PasswordFor(model => model.Password)
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </div>
+            <div class="input_box">
+                <label>Email address <span>*</span></label>
+                @Html.EditorFor(model => model.Email_Cus)
+                @Html.ValidationMessageFor(model => model.Email_Cus, "", new { @class = "text-danger" })
+            </div>
+            <div class="input_box">
+                <label>Address <span>*</span></label>
+                @Html.EditorFor(model => model.Address_Cus)
+                @Html.ValidationMessageFor(model => model.Address_Cus, "", new { @class = "text-danger" })
+            </div>
+            <div class="margin_between">
+                <div class="input_box space_between">
+                    <label>Phone <span>*</span></label>
+                    @Html.EditorFor(model => model.Phone_Cus)
+                    @Html.ValidationMessageFor(model => model.Phone_Cus, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div  class="input_box">
+                    <input type="submit" value="Create" class="btn btn-default" style="width: 140px;" />
+            </div>
+        </div>
+            }
+        </div>
+        <div class="customer_details mt--20">
+            <div class="differt__address">
+                <input name="ship_to_different_address" value="1" type="checkbox">
+                <span>Ship to a different address ?</span>
+            </div>
+            <div class="customar__field differt__form mt--40">
+                <div class="margin_between">
+                    <div class="input_box space_between">
+                        <label>First name <span>*</span></label>
+                        <input type="text">
+                    </div>
+                    <div class="input_box space_between">
+                        <label>last name <span>*</span></label>
+                        <input type="text">
+                    </div>
+                </div>
+                <div class="input_box">
+                    <label>Company name <span>*</span></label>
+                    <input type="text">
+                </div>
+                <div class="input_box">
+                    <label>Country<span>*</span></label>
+                    <select class="select__option">
+                        <option>Select a country…</option>
+                        <option>Afghanistan</option>
+                        <option>American Samoa</option>
+                        <option>Anguilla</option>
+                        <option>American Samoa</option>
+                        <option>Antarctica</option>
+                        <option>Antigua and Barbuda</option>
+                    </select>
+                </div>
+                <div class="input_box">
+                    <label>Address <span>*</span></label>
+                    <input type="text" placeholder="Street address">
+                </div>
+                <div class="input_box">
+                    <input type="text" placeholder="Apartment, suite, unit etc. (optional)">
+                </div>
+                <div class="input_box">
+                    <label>District<span>*</span></label>
+                    <select class="select__option">
+                        <option>Select a country…</option>
+                        <option>Afghanistan</option>
+                        <option>American Samoa</option>
+                        <option>Anguilla</option>
+                        <option>American Samoa</option>
+                        <option>Antarctica</option>
+                        <option>Antigua and Barbuda</option>
+                    </select>
+                </div>
+                <div class="input_box">
+                    <label>Postcode / ZIP <span>*</span></label>
+                    <input type="text">
+                </div>
+                <div class="margin_between">
+                    <div class="input_box space_between">
+                        <label>Phone <span>*</span></label>
+                        <input type="text">
+                    </div>
+                    <div class="input_box space_between">
+                        <label>Email address <span>*</span></label>
+                        <input type="email">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

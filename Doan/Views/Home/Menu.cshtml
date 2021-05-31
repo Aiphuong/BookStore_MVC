@@ -1,0 +1,57 @@
+﻿@using Doan.Models
+@{
+    Layout = null;
+    Db_Doan db = new Db_Doan();
+    var cate = db.Categories.ToList();
+    var catelst = cate as IEnumerable<Category>;
+    var supplier = db.Suppliers.ToList();
+    var supplierlst = supplier as IEnumerable<Supplier>;
+}
+
+                <nav class="mainmenu__nav">
+                    <ul class="meninmenu d-flex justify-content-start">
+                        <li class="drop with--one--item">
+                            <a href="/Home/IndexUser">Home</a>
+                        </li>
+                        <li class="drop">
+                            <a href="#">Shop</a>
+
+                        </li>
+                        <li class="drop">
+                            <a href="#l">Books</a>
+                            <div class="megamenu mega03">
+                                <ul class="item item03">
+                                    <li class="title">Categories</li>
+                                    @foreach (var item in cate)
+                                    {
+                                        <li><a href="/Home/ProductList/@item.CategoryID">@Html.DisplayFor(modelItem => item.CategoryName) </a></li>
+                                    }
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="drop">
+                            <a href="#l">Suppliers</a>
+                            <div class="megamenu mega03">
+                                <ul class="item item03">
+                                    <li class="title">Suppliers</li>
+                                    @foreach (var item in supplierlst)
+                                    {
+                                        <li><a href="/Home/ProductListWithSupplier/@item.SupplierID">@Html.DisplayFor(modelItem => item.SupplierName) </a></li>
+                                    }
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="drop">
+
+                        </li>
+                        <li class="drop">
+
+                        </li>
+                        <li class="drop">
+
+                        </li>
+                        <li>  <a href="/Contacts/Create">Contact</a></li>
+                        <li>  <a href="/Blogs/IndexUser">Blog</a></li>
+                    </ul>
+                </nav>
+

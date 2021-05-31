@@ -1,0 +1,174 @@
+﻿@model IEnumerable<Doan.Models.Product>
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="main__cards">
+
+            <div class="card">
+                <div class="card__header">
+                    <div class="card__header-title text-light">
+                        Sách <strong>sắp hết</strong>
+                    </div>
+                </div>
+                <div class="card" id="containerchart">
+
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Danh sách sản phẩm số lượng tồn nhỏ hơn 5
+            </div>
+            <div class="table-responsive">
+                <table id="myTable" class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Category.CategoryName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Supplier.SupplierName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ProductName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Image)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Price)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Quantity)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CreatedDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CreatedBy)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Supplier.SupplierName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ProductName)
+                                </td>
+                                <td>
+                                    <img src="~/Images/@item.Image" style="width:50px; height:50px" />
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Price)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Quantity)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CreatedDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CreatedBy)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.IDProduct }) |
+                                    @Html.ActionLink("Details", "Details", new { id = item.IDProduct }) |
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.IDProduct })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        @*<button type="button" class="btn btn-info" onclick="$('table').tblToExcel();">Export To Excel</button>*@
+    </div>
+</div>
+
+@section scripts {
+
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/data.js"></script>
+    <script src="https://code.highcharts.com/modules/drilldown.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $.getJSON("/Statistical/GetData4", function (data) {
+                var Names = []
+                var Qts = []
+                for (var i = 0; i < data.length; i++) {
+                    Names.push(data[i].name);
+                    Qts.push(data[i].count);
+                }
+
+                Highcharts.chart('containerchart', {
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'Sách sắp hết'
+                    },
+                    xAxis: {
+                        categories: Names
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Tồn'
+                        }
+                    },
+                    plotOptions: {
+                        line: {
+                            dataLabels: {
+                                enabled: true
+                            },
+                            enableMouseTracking: false
+                        }
+                    },
+                    series: [{
+                        name: 'Cuốn',
+                        data: Qts
+                    }]
+                });
+            });
+
+        });
+
+    </script>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap.min.js"></script>
+    @*<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+        </script>
+        <script src="~/Assets/jquery.tableToExcel.js"></script>*@
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable({
+                responsive: true,
+                "lengthMenu": [[5, 10, 20, 50, -1], [5, 10, 20, 50, "All"]]
+            });
+            //$('table').tblToExcel();
+        });
+    </script>
+}
+<link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap.min.css" rel="stylesheet" />

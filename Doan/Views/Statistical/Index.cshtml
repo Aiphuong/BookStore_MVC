@@ -1,0 +1,206 @@
+﻿@using Doan.Models;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    <link href="~/Static/admin/css/style.css" rel="stylesheet" />
+}
+
+
+<div class="main-overview">
+    <div class="overviewCard">
+        <div class="overviewCard-icon overviewCard-icon--document">
+            <i class="far fa-file-alt"></i>
+        </div>
+        <div class="overviewCard-description">
+            <h3 class="overviewCard-title text-light"> @ViewBag.ThongKeDonHang</h3>
+            <p class="overviewCard-subtitle">Đơn Hàng</p>
+        </div>
+    </div>
+    <div class="overviewCard">
+        <div class="overviewCard-icon overviewCard-icon--calendar">
+            <i class="far fa-calendar-check"></i>
+        </div>
+        <div class="overviewCard-description">
+            <h3 class="overviewCard-title text-light">
+                @{decimal TongDoanhThu = decimal.Parse(ViewBag.ThongKeDoanhThu.ToString());
+                }
+                @TongDoanhThu.ToString("#,##") K<span></span>
+            </h3>
+            <p class="overviewCard-subtitle">Tổng Tiền</p>
+        </div>
+           
+            
+    </div>
+    <div class="overviewCard">
+        <div class="overviewCard-description">
+            <h3 class="overviewCard-title text-light">
+                @{decimal TongDoanhThu1 = decimal.Parse(ViewBag.ThongKeDoanhThuSau.ToString());
+                }
+                @TongDoanhThu1.ToString("#,##") K<span></span>
+            </h3>
+            <p class="overviewCard-subtitle">Tổng tiền thực tế</p>
+        </div>
+    </div>
+    <div class="overviewCard">
+        <div class="overviewCard-description">
+            <h3 class="overviewCard-title text-light">
+                @{decimal TongDoanhThu2 = decimal.Parse(ViewBag.ThongKeSoTienNhanDuoc.ToString());
+                }
+                @TongDoanhThu2.ToString("#,##") K<span></span>
+            </h3>
+            <p class="overviewCard-subtitle">Tổng Tiền đã nhận</p>
+        </div>
+    </div>
+    <div class="overviewCard">
+        <div class="overviewCard-description">
+            <h3 class="overviewCard-title text-light">
+                @{decimal TongDoanhThu3 = decimal.Parse(ViewBag.ThongKeSoTienCongNo.ToString());
+                }
+                @TongDoanhThu3.ToString("#,##") K<span></span>
+            </h3>
+            <p class="overviewCard-subtitle">Tiền còn công nợ</p>
+        </div>
+    </div>
+    <div class="overviewCard">
+        <div class="overviewCard-icon overviewCard-icon--mail">
+            <i class="far fa-envelope"></i>
+        </div>
+        <div class="overviewCard-description">
+            <h3 class="overviewCard-title text-light">@ViewBag.ThongKeLoaiSanPham</h3>
+            <p class="overviewCard-subtitle">Loại Sản Phẩm</p>
+        </div>
+    </div>
+    <div class="overviewCard">
+        <div class="overviewCard-icon overviewCard-icon--photo">
+            <i class="far fa-file-image"></i>
+        </div>
+        <div class="overviewCard-description">
+            <h3 class="overviewCard-title text-light">@ViewBag.ThongKeKhachHang</h3>
+            <p class="overviewCard-subtitle">Khách hàng</p>
+        </div>
+    </div>
+</div>
+<div class="main__cards">
+    <div class="card">
+        <div class="card__header">
+            <div class="card__header-title text-light">
+                Your <strong>Events</strong>
+                <a href="#" class="card__header-link text-bold">View All</a>
+            </div>
+            <div class="settings">
+                <div class="settings__block"><i class="fas fa-edit"></i></div>
+                <div class="settings__block"><i class="fas fa-cog"></i></div>
+            </div>
+        </div>
+        <div class="card__main"  id="containerchart2">
+         
+        </div>
+    </div>
+    <div class="card">
+        <div class="card__header" >
+            <div class="card__header-title text-light">
+                Number of  <strong>books sold</strong>
+            </div>
+        </div>
+        <div class="card" id="containerchart">
+          
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/series-label.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $.getJSON("/Statistical/GetData", function (data) {
+                var Names = []
+                var Qts = []
+                for (var i = 0; i < data.length; i++) {
+                    Names.push(data[i].name);
+                    Qts.push(data[i].count);
+                }
+
+                Highcharts.chart('containerchart', {
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'Number of books sold'
+                    },
+                    xAxis: {
+                        categories: Names
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Book sold'
+                        }
+                    },
+                    plotOptions: {
+                        line: {
+                            dataLabels: {
+                                enabled: true
+                            },
+                            enableMouseTracking: false
+                        }
+                    },
+                    series: [{
+                        name: 'Quantity',
+                        data: Qts
+                    }]
+                });
+            });
+
+        });
+
+       
+    </script>
+    <script>
+         $(document).ready(function () {
+            $.getJSON("/Statistical/GetData2", function (data) {
+                var Names2 = []
+                var Qts2 = []
+                for (var i = 0; i < data.length; i++) {
+                    Names2.push(data[i].name);
+                    Qts2.push(data[i].count);
+                }
+
+                Highcharts.chart('containerchart2', {
+                    chart: {
+                        type: 'line'
+                    },
+                    title: {
+                        text: 'Number of books'
+                    },
+                    xAxis: {
+                        categories: Names2
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Book'
+                        }
+                    },
+                    plotOptions: {
+                        line: {
+                            dataLabels: {
+                                enabled: true
+                            },
+                            enableMouseTracking: false
+                        }
+                    },
+                    series: [{
+                        name: 'Categories',
+                        data: Qts2
+                    }]
+                });
+            });
+
+        });
+
+    </script>
+}

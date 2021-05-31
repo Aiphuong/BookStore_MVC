@@ -1,0 +1,88 @@
+﻿@model Doan.Models.Customer
+
+@{
+    ViewBag.Title = "LoginCus";
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="~/Static/Login.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+</head>
+<body>
+    @using (Html.BeginForm("LoginCus", "Login", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div class="container">
+            <div class="signin-content">
+                <div class="signin-image">
+                    <figure>
+                        <img src="~/Images/signup-image.jpg" alt="sing up image">
+                    </figure>
+                    <div style="display:flex; justify-content: space-evenly;">
+                        <a class="signup-image-link" href="@Url.Action("RegisterCus","Login")"><span>Register</span></a>
+                        <a class="signup-image-link" href="@Url.Action("ResetPass","Login")"><span>Forgot passwor</span></a>
+                    </div>
+                   
+                </div>
+
+
+                <div class="signin-form">
+                    <h2 class="form-title">Login</h2>
+                    <form method="POST" class="register-form" id="login-form">
+                        <div class="form-group">
+
+                            @Html.TextBoxFor(m => m.Email_Cus, new { placeholder = "Email", style = "border: 1px solid #e1e1e1; height: 40px;margin: 0 0 14px;max-width: 100%;padding: 0 0 0 10px; width: 370px;", type = "text" })
+                            @Html.ValidationMessageFor(m => m.Email_Cus)
+                            <label for="your_name"><i class="pe-7s-user"></i></label>
+
+                        </div>
+                        <div class="form-group">
+                            <label for="your_pass"><i class="pe-7s-lock"></i></label>
+                            @Html.PasswordFor(m => m.Password, new { placeholder = "Password", style = "border: 1px solid #e1e1e1; height: 40px;margin: 0 0 14px;max-width: 100%;padding: 0 0 0 10px; width: 370px;", type = "password" })
+                            @Html.ValidationMessageFor(m => m.Password)
+                        </div>
+                        <div class="form-group">
+                            @if (ViewBag.error != null)
+                            {
+                                <span class="badge badge-danger">@ViewBag.error</span>
+                            }
+                        </div>
+                        @*<div class="form-group">
+                            <a class="label-agree-term" href="@Url.Action("ResetPass","Login")"><span>Forgot passwor</span></a>
+                            <label for="remember-me"><span><span></span></span>d</label>
+                        </div>*@
+                        <div class="form-group form-button">
+                            <input type="submit" name="signin" id="signin" class="form-submit" value="Log in" />
+                        </div>
+                    </form>
+                    <div class="social-login">
+                        <span class="social-label">Or login with</span>
+                        <ul class="socials">
+                            <li><a href="/Login/LoginFacebook"><i class="display-flex zmdi zmdi-facebook " style="display: flex; justify-content: center; font-size: 25px;"></i></a></li>
+                            @*<li><a href="#"><i class="display-flex-center zmdi zmdi-twitter"></i></a></li>
+                <li><a href="#"><i class="display-flex-center zmdi zmdi-google"></i></a></li>*@
+                        </ul>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        @*<div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Đăng nhập" class="btn btn-default" />
+                <a class="btn btn-facebook" href="/Login/LoginFacebook">
+                    <i class="fa fa-facebook"></i>
+                    Đăng nhập bằng Facebook
+                </a>
+            </div>
+        </div>*@
+    }
+
+
+</body>
+</html>

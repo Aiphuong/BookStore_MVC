@@ -1,0 +1,177 @@
+﻿
+@using Doan.Models
+@model Doan.Models.Common.IVC
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+@if (ViewBag.ThongBao == "Đã nhập hàng thành công")
+{
+    <br />
+    <div class="alert alert-success alert-dismissable">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>@ViewBag.ThongBao</strong>
+    </div>
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="ThongtinPhieuNhap row">
+        <label class="control-label col-md-2">Nhà cung cấp</label>
+        <div class="col-md-5">
+            @*Chọn nhà cung cấp*@
+            <div class="col-md-10">
+
+                @if (ViewBag.MaNCC != null)
+                {
+                    @Html.DropDownListFor(m => m.supId, ViewBag.MaNCC as SelectList, "-- Select Supplier--", new { @class = "form-control" })
+
+                }
+            </div>
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+    <div class="clearfix"></div>
+    <br />
+
+    <br />
+    <br />
+    <br />
+    <table class="table tblChiTietPhieuNhap">
+        @{IEnumerable<Product> lstSanPham = ViewBag.ListSanPham as IEnumerable<Product>;}
+        <tr class="trAppend" style="display:none;">
+            <td>
+                    @Html.DropDownListFor(m => m.proId, new SelectList(""), "--Select State--", new { @class = "ddlSanPham form-control" })
+
+            </td>
+            <td>
+                <input name="" class="txtDonGia form-control" value="0" />
+            </td>
+            <td>
+                <input name="" class="txtSoLuong form-control" value="0" />
+            </td>
+            <td>
+                <input class="btnDelete btn btn-danger" style="width:33px; height: 33px; text-align: center;" value="-" />
+            </td>
+        </tr>
+        <tr class="trFirstChild" data-id="-1">
+            <td>Sản phẩm</td>
+            <td>Đơn giá nhập</td>
+            <td>Số lượng nhập</td>
+            <td></td>
+    </table>
+    <input type="button" value="+" class="btn btn-success" id="btnAdd" />
+    <input type="submit" value="Nhập hàng" class="btn btn-success" id="btnNhapHang" />
+}
+
+@{
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $("#supId").change(function () {
+
+                var supId = $(this).val();
+                debugger
+                $.ajax({
+
+                    type: "Post",
+                    url: "/IVCs/getPro?supId=" + supId,
+                    contentType: "html",
+                    success: function (response) {
+                        debugger
+                        $("#proId").empty();
+                        $("#proId").append(response);
+                    }
+                })
+            })
+        })
+
+    </script>
+    <script>
+        $("#btnAdd").click(function () {
+            var id_cuoi = $(".tblChiTietPhieuNhap").find("tr:last-child").attr("data-id");
+            i = parseInt(id_cuoi) + 1;
+            var tdnoidung = $(".trAppend").html();
+            var trnoidung = "<tr class=\"trAppended\" data-id=\"" + i + "\">" + tdnoidung + "</tr>";
+            $(".tblChiTietPhieuNhap").append(trnoidung);
+            loadIDLENTHE();
+        });
+        function loadIDLENTHE() {
+            $(".trAppended")
+                .each(function () {
+                    var id = $(this).attr("data-id");
+                    var nameMaSanPham = "[" + id + "].Id";
+                    var nameSoLuongNhap = "[" + id + "].Quantity";
+                    var nameDonGiaNhap = "[" + id + "].Price";
+                    $(this).find(".ddlSanPham").attr("name", nameMaSanPham);
+                    $(this).find(".txtDonGia").attr("name", nameDonGiaNhap);
+                    $(this).find(".txtSoLuong").attr("name", nameSoLuongNhap);
+                });
+        };
+        function CapNhapID() {
+            var id_cuoi = $(".tblChiTietPhieuNhap").find(".trFirstChild").attr("data-id");
+            i = parseInt(id_cuoi) + 1;
+            $(".trAppended")
+                .each(function () {
+                    var id = i;
+                    $(this).attr("data-id", i);
+                    var nameMaSanPham = "[" + id + "].Id";
+                    var nameSoLuongNhap = "[" + id + "].Price";
+                    var nameDonGiaNhap = "[" + id + "].Quantity";
+                    $(this).find(".ddlSanPham").attr("name", nameMaSanPham);
+                    $(this).find(".txtDonGia").attr("name", nameDonGiaNhap);
+                    $(this).find(".txtSoLuong").attr("name", nameSoLuongNhap);
+                    i++;
+                });
+        }
+        $("body").delegate(".btnDelete", "click", function () {
+
+            $(this).closest(".trAppended").remove();
+            CapNhapID();
+        });
+
+        $("#btnNhapHang").click(function () {
+
+            if (kiemtraDonGia() == false) {
+                return false;
+            }
+            if (kiemtraSoLuong() == false) {
+                return false;
+            }
+
+        });
+
+        function kiemtraDonGia() {
+            var bl = true;
+            $(".txtDonGia").each(function () {
+                var giatri = $(this).val();
+                if (isNaN(giatri) == true || parseInt(giatri) < 0) {
+                    alert("Đơn giá không hợp lệ!");
+                    bl = false;
+                    return bl;
+                }
+            });
+            return bl;
+        }
+        function kiemtraSoLuong() {
+            var bl = true;
+            $(".txtSoLuong").each(function () {
+                var giatri = $(this).val();
+                if (isNaN(giatri) == true || parseInt(giatri) < 0) {
+                    alert("Số lượng không hợp lệ!");
+                    bl = false;
+                    return bl;
+                }
+            });
+            return bl;
+        }
+
+    </script>
+}

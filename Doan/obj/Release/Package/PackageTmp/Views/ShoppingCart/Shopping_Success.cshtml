@@ -1,0 +1,50 @@
+﻿@{
+    ViewBag.Title = "Shopping_Success";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<div class="ht__bradcaump__area bg-image--5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="bradcaump__inner text-center">
+                    <h2 class="bradcaump-title">404</h2>
+                    <nav class="bradcaump-content">
+                        <a class="breadcrumb_item" href="~/Home/IndexUser">Home</a>
+                        <span class="brd-separetor">/</span>
+                        <span class="breadcrumb_item active">Successfull</span>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Bradcaump area -->
+<!-- Start Error Area -->
+<section class="page_error section-padding--lg bg--white">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="error__inner text-center">
+                    <div class="error__logo">
+                        <a href="#"><img src="~/Images/ty.png" style="width: 30%;" alt="error images"></a>
+                    </div>
+                    <div class="error__content">
+                        <h2>Successfull</h2>
+                        <p>Bills of your had sent the Shop.Thanks!</p>
+                        <div class="search_form_wrapper">
+                            <form action="#">
+                                <div class="form__box">
+                                    <div class="mini_action checkout">
+                                        <a class="btn btn-default" href="@Url.Action("IndexUser","Home")">Continue Shopping..</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

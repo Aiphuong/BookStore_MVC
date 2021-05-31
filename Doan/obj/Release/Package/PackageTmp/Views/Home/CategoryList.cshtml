@@ -1,0 +1,14 @@
+﻿@model IEnumerable<Doan.Models.Category>
+
+@{
+    ViewBag.Title = "CategoryList";
+    Layout = null;
+}
+
+
+@foreach (var item in Model)
+{
+     <ul>
+         <li><a href="/Home/ProductList/@item.CategoryID"> @Html.DisplayFor(modelItem => item.CategoryName) <span></span></a></li>
+     </ul>
+}

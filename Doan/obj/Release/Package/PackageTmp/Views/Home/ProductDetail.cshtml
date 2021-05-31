@@ -1,0 +1,148 @@
+﻿@model Doan.Models.Product
+
+@{
+    ViewBag.Title = "ProductDetail";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+    <div class="wrapper" id="wrapper">
+        <!-- Start Bradcaump area -->
+        <div class="ht__bradcaump__area bg-image--4">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="text-center">
+                            <h2 class="text-center">Shop Single</h2>
+                            <nav class="text-center">
+                                <a class="breadcrumb_item" href="/Home/Index">Home</a>
+                                <span class="brd-separetor">/</span>
+                                <span class="breadcrumb_item active">Shop Single</span>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Start main Content -->
+        <div class="maincontent bg--white pt--80 pb--55">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-12">
+                        <div class="wn__single__product">
+                            <div class="row">
+                                <div class="col-lg-5 col-12">
+                                    <div class="wn__fotorama__wrapper">
+                                        <div class="fotorama wn__fotorama__action" data-nav="thumbs">
+                                            <a href="#"><img src="~/Images/@Model.Image" style="height:250px; width:200px; object-fit: cover;"></a>
+                                            <a href="#"><img src="~/Images/@Model.MoreImage1" alt=""></a>
+                                            <a href="#"><img src="~/Images/@Model.MoreImage2" alt=""></a>
+                                            <a href="#"><img src="~/Images/@Model.MoreImage3" alt=""></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-7 col-12">
+                                    <div class="product__info__main">
+                                        <h1>@Html.DisplayFor(model => model.ProductName)</h1>
+                                        <div class="product-info-stock-sku d-flex">
+                                            <p>Availability:<span> In stock</span></p>
+                                            <p>SKU:<span> MH01</span></p>
+                                        </div>
+                                        <div class="product-reviews-summary d-flex">
+                                            <ul class="rating-summary d-flex">
+                                                <li><i class="zmdi zmdi-star-outline"></i></li>
+                                                <li><i class="zmdi zmdi-star-outline"></i></li>
+                                                <li><i class="zmdi zmdi-star-outline"></i></li>
+                                                <li class="off"><i class="zmdi zmdi-star-outline"></i></li>
+                                                <li class="off"><i class="zmdi zmdi-star-outline"></i></li>
+                                            </ul>
+                                            <div class="reviews-actions d-flex">
+                                                <a href="#">(1 Review)</a>
+                                                <a href="#">Add Your Review</a>
+                                            </div>
+                                        </div>
+                                        @if (Model.Quantity <= 0 || Model.Quantity == null)
+                                        {
+                                    <div class="price-box">
+                                        <span>$@Html.DisplayFor(model => model.Price)</span>
+                                        <h4>Sản phẩm còn: @Html.DisplayFor(model => model.Quantity)</h4>
+                                        <h4>Sản phẩm hiện tại tạm hết</h4>
+                                        <div class="box-tocart d-flex">
+                                            <div class="addtocart__actions">
+                                                <a class="btn btn-info" style="opacity:0.3;" href="#">Add to Cart</a>
+                                            </div>
+                                        </div>
+                                        <div class="product-addto-links clearfix">
+                                            <a class="wishlist" href="/WL/AddtoWhishList/@Model.IDProduct"></a>
+                                        </div>
+                                        <div>
+                                            <p>@Html.DisplayFor(model => model.MetaTitle)</p>
+                                        </div>
+                                    </div>
+                                        }
+                                        else
+                                        {
+                                    <div class="price-box">
+                                        <span>$@Html.DisplayFor(model => model.Price)</span>
+                                        <h4>Sản phẩm còn: @Html.DisplayFor(model => model.Quantity)</h4>
+                                        <div class="box-tocart d-flex">
+                                            <div class="addtocart__actions">
+                                                <a class="btn btn-info" href="/ShoppingCart/AddtoCart/@Model.IDProduct">Add to Cart</a>
+                                            </div>
+                                        </div>
+                                        <div class="product-addto-links clearfix">
+                                            <a class="wishlist" href="/WL/AddtoWhishList/@Model.IDProduct"></a>
+                                        </div>
+                                        <div>
+                                            <p>@Html.DisplayFor(model => model.MetaTitle)</p>
+                                        </div>
+                                    </div>
+                                        }
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product__info__detailed pt--80  pb--30">
+                                <div class="pro_details_nav nav justify-content-start" role="tablist">
+                                    <a class="nav-item nav-link active" data-toggle="tab" href="#nav-details" role="tab">Details</a>
+                                    <a class="nav-item nav-link" data-toggle="tab" href="#nav-review" role="tab">Reviews</a>
+                                </div>
+                                <div class="tab__container">
+                                    <!-- Start Single Tab Content -->
+                                    <div class="pro__tab_label tab-pane fade show active" id="nav-details" role="tabpanel">
+                                        <div class="description__attribute">
+                                            <p>@Html.DisplayFor(model => model.Description)</p>
+                                        </div>
+                                    </div>
+                                    <!-- End Single Tab Content -->
+                                    <!-- Start Single Tab Content -->
+                                    <div class="pro__tab_label tab-pane fade" id="nav-review" role="tabpanel">
+                                        <div class="col-sm-12 box_cmt" style="overflow: auto; height:700px;">
+                                            <iframe src="https://www.facebook.com/v3.2/plugins/comments.php?app_id=363772567412181&amp;href=https%3A%2F%2Fwww.facebook.com%2Fphoto.php?fbid=388780811457061&set=a.106286559706489&type=3&theater
+                                                    " style="border: none; visibility: visible; width: 100%; height: 600px; overflow: auto;" class=""></iframe>
+                                        </div>
+                                    </div>
+                                    <!-- End Single Tab Content -->
+                                </div>
+                            </div>
+                            <div class="row" >
+                                <div class="col-lg-12">
+                                    <div class="section__title text-center" style="margin-top:25px;">
+                                        <h2 class="title__be--2">
+                                            Books <span class="color--theme">of the same type</span>
+                                        </h2>
+                                        <p>
+                                            “The instruction we find in books is like fire. We fetch it from our neighbours, kindle it
+                                            at home, communicate it to others, and it becomes the property of all.”
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            @{ Html.RenderAction("MoreProduct", "Home", new { id = Model.CategoryID });}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @{ Html.RenderAction("ShowToGetViewHistoryt", "Home");}
+    </div>

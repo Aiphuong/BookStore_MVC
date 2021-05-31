@@ -1,0 +1,148 @@
+﻿@model IEnumerable<Doan.Models.BestSale>
+
+
+@{
+    ViewBag.Title = "BestSale";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+
+        <div class="panel panel-default">
+
+            <div class="main__cards">
+
+                <div class="card">
+                    <div class="card__header">
+                        <div class="card__header-title text-light">
+                            Best  <strong>sale</strong>
+                        </div>
+                    </div>
+                    <div class="card" id="containerchart">
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-heading">
+                Danh sách san pham ban chay
+            </div>
+
+            <div class="row form-group">
+                @using (Html.BeginForm("Index", "Products", FormMethod.Get))
+                {
+
+                }
+            </div>
+            <div class="table-responsive">
+                <table id="myTableBS" class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.NamePro)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Image)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Price)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Quantity)
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.NamePro)
+                                </td>
+                                <td>
+                                    <img src="~/Images/@item.Image" style="width:50px; height:50px" />
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Price)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Quantity)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <button type="button" class="btn btn-info" onclick="$('table').tblToExcel();">Export To Excel</button>
+
+    </div>
+</div>
+
+
+@section scripts {
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/data.js"></script>
+    <script src="https://code.highcharts.com/modules/drilldown.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $.getJSON("/Statistical/GetData3", function (data) {
+                var Names = []
+                var Qts = []
+                for (var i = 0; i < data.length; i++) {
+                    Names.push(data[i].name);
+                    Qts.push(data[i].count);
+                }
+
+                Highcharts.chart('containerchart', {
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'Books best sale'
+                    },
+                    xAxis: {
+                        categories: Names
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Book sold'
+                        }
+                    },
+                    plotOptions: {
+                        line: {
+                            dataLabels: {
+                                enabled: true
+                            },
+                            enableMouseTracking: false
+                        }
+                    },
+                    series: [{
+                        name: 'Quantity',
+                        data: Qts
+                    }]
+                });
+            });
+
+        });
+
+    </script>
+    <script src="~/Assets/jquery.tableToExcel.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#myTableBS').DataTable({
+                responsive: true,
+                "lengthMenu": [[5, 10, 20, 50, -1], [5, 10, 20, 50, "All"]]
+            });
+        $('table').tblToExcel();
+    });
+    </script>
+
+}
+<link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap.min.css" rel="stylesheet" />

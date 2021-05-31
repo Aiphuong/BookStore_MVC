@@ -1,0 +1,157 @@
+﻿@using Doan.Models;
+@model _Order
+
+@{
+    ViewBag.Title = "OrderApproval";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+@if (ViewBag.Message != null)
+{
+    <h1 class="label label-success">@ViewBag.Message</h1>
+    <br />
+    <br />
+}
+
+<h2>Thông tin đơn hàng </h2>
+<br />
+<br />
+@if (ViewBag.Message != null)
+{
+    <h1 class="label label-success">@ViewBag.Message</h1>
+    <br />
+    <br />
+}
+
+@using (Html.BeginForm("OdDetails", "OrderManagement", FormMethod.Post))
+{
+<div class="ChiTietDonHang table" style="height:2000px;">
+    @{IEnumerable<OrderDetail> lstChiTietDH = (IEnumerable<OrderDetail>)ViewBag.ListChiTietDH;}
+    <table class="table" id="table">
+        <tr>
+            <td colspan="4">
+                <table style="width:100%;">
+                    <tr>
+                        <td>Mã đơn hàng: <b style="color:red;"> @Model.IDOrder @Html.Hidden("IDOrder", @Model.IDOrder)</b></td>
+                        <td>Tên KH: <b style="color:red;"> @Model.Customer.FirstName</b></td>
+                        <td>SĐT: <b style="color:red;"> @Model.Customer.Phone_Cus</b></td>
+                        <td>Ngày đặt: @Model.OrderDate.Value.ToString("dd/MM/yyyy")</td>
+                        <td>Đã giao: @Model.Status</td>
+                        <td>Đã thanh toán: @Model.Paid</td>
+                        <td>Đã huy: @Model.Deleted</td>
+                    </tr>
+                </table>
+
+            </td>
+        </tr>
+        <tr>
+            <td><b>Sản phẩm</b></td>
+            <td><b>Hình ảnh</b></td>
+            <td><b>Số lượng đặt</b></td>
+            <td><b>Đơn giá đặt</b></td>
+        </tr>
+
+        @foreach (var item in lstChiTietDH)
+        {
+            <tr>
+                <td>@item.Product.ProductName</td>
+                <td><img style="width:80px; height:80px;" src="~/Images/@item.Product.Image" /></td>
+                <td>@item.QuantitySale</td>
+                <td>@item.UnitPriceSale</td>
+            </tr>
+        }
+        @foreach (var item in lstChiTietDH)
+        {
+            <tr>
+                <td align="right" colspan="4">Tổng số lượng: @Model.OrderDetails.Sum(n => n.QuantitySale) sản phẩm</td>
+            </tr>
+            if (Model.IdCoupon != null)
+            {
+                <tr>
+                    <td align="right" colspan="4">Ma coupon ap dung: @Model.Coupon.Name </td>
+                </tr>
+                <tr>
+                    <td align="right" colspan="4">Gia tri coupo: @Model.Coupon.Price </td>
+                </tr>
+                if (Model.scores == null)
+                {
+                    <tr>
+                        <td align="right" colspan="4">The thanh vien: Ban chua du dieu kien de len cap </td>
+
+                    </tr>
+                    <tr>
+                        <td align="right" colspan="4">So diem tich luy: @Model.Customer.scores </td>
+                    </tr>
+
+                }
+                else if (Model.scores == 1)
+                {
+                    <tr>
+                        <td align="right" colspan="4">The thanh vien: Cap dong </td>
+                    </tr>
+                    <tr>
+                        <td align="right" colspan="4">So diem tich luy: @Model.Customer.scores </td>
+                    </tr>
+                }
+                else if (Model.scores == 2)
+                {
+                    <tr>
+                        <td align="right" colspan="4">The thanh vien: Cap bac </td>
+                    </tr>
+                    <tr>
+                        <td align="right" colspan="4">So diem tich luy: @Model.Customer.scores </td>
+                    </tr>
+                }
+                else if (Model.scores == 3)
+                {
+                    <tr>
+                        <td align="right" colspan="4">The thanh vien: Cap vang </td>
+                    </tr>
+                    <tr>
+                        <td align="right" colspan="4">So diem tich luy: @Model.Customer.scores </td>
+                    </tr>
+                }
+                if (item.UnitPriceSale != null)
+                {
+                    <tr>
+                        <td align="right" colspan="4">Tổng tiền: @Model.Total đồng</td>
+                    </tr>
+                    <tr>
+                        <td align="right" colspan="4">Tổng tiền sau giam gia: @Model.TotalSuccess đồng</td>
+                    </tr>
+                }
+                else
+                {
+                    <tr>
+                        <td align="right" colspan="4">Tổng tiền:0 đồng</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                if (item.UnitPriceSale != null)
+                {
+                    <tr>
+                        <td align="right" colspan="4">Tổng tiền: @Model.Total đồng</td>
+                    </tr>
+                    <tr>
+                        <td align="right" colspan="4">Tổng tiền sau giam gia: @Model.TotalSuccess đồng</td>
+                    </tr>
+                }
+                else
+                {
+                    <tr>
+                        <td align="right" colspan="4">Tổng tiền:0 đồng</td>
+                    </tr>
+                }
+            }
+
+        }
+    </table>
+    <br /><br />
+    <a class="btn btn-primary " href="@Url.Action("Bill", "Customers", new { id = Model.CodeCus })">Back List</a>
+    <a class="btn btn-primary " href="@Url.Action("OrderApproval", "OrderManagement", new { id = Model.IDOrder })">Duyệt đơn hàng</a>
+</div>
+}

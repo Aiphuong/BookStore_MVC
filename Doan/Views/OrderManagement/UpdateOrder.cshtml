@@ -1,0 +1,171 @@
+﻿@using Doan.Models;
+@model _Order
+
+@{
+    ViewBag.Title = "OrderApproval";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .content {
+        height:150%;
+    }
+</style>
+
+<h2>Thông tin đơn hàng </h2>
+<br />
+<br />
+@if (ViewBag.Message != null)
+{
+    <h1 class="label label-success">@ViewBag.Message</h1>
+    <br />
+    <br />
+}
+
+@using (Html.BeginForm("UpdateOrder", "OrderManagement", FormMethod.Post))
+{
+    <div class="ChiTietDonHang table">
+        @{IEnumerable<OrderDetail> lstChiTietDH = (IEnumerable<OrderDetail>)ViewBag.ListChiTietDH;}
+        <table class="table" id="table">
+            <tr>
+                <td colspan="4">
+                    <table style="width:100%;">
+                        <tr>
+                            <td>Mã đơn hàng: <b style="color:red;"> @Model.IDOrder @Html.Hidden("IDOrder", @Model.IDOrder)</b></td>
+                            <td>Tên KH: <b style="color:red;"> @Model.Customer.FirstName</b></td>
+                            <td>SĐT: <b style="color:red;"> @Model.Customer.Phone_Cus</b></td>
+                            <td>Ngày đặt: @Model.OrderDate.Value.ToString("dd/MM/yyyy")</td>
+                            <td>Đã thanh toán: @Html.EditorFor(model => model.Paid)</td>
+                            <td>Đang giao: @Html.EditorFor(model => model.Status)</td>
+                        </tr>
+                    </table>
+
+                </td>
+            </tr>
+            <tr>
+                @if (ViewBag.unitShip != null)
+                {
+                    <td class="form-group"  style="display: flex;">
+                        @Html.LabelFor(model => model.ID_Ship, "ID_Ship")
+                        <div class="col-md-10">
+                            @Html.DropDownList("ID_Ship", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.ID_Ship, "", new { @class = "text-danger" })
+                        </div>
+                    </td>
+
+                    @*<td>Đơn vị ship: @Html.DropDownListFor(model => model.Shipping, ViewBag.unitShip as SelectList, "-- Select Supplier--", new { @class = "form-control" })</td>*@
+
+                }
+                <td class="form-group">Phí ship: @Html.EditorFor(model => model.Shipping.Shipping_fee)</td>
+            </tr>
+            <tr>
+                <td><b>Sản phẩm</b></td>
+                <td><b>Hình ảnh</b></td>
+                <td><b>Số lượng đặt</b></td>
+                <td><b>Đơn giá đặt</b></td>
+            </tr>
+
+            @foreach (var item in lstChiTietDH)
+            {
+                <tr>
+                    <td>@item.Product.ProductName</td>
+                    <td><img width="150" height="150" src="~/Images/@item.Product.Image" /></td>
+                    <td>@item.QuantitySale</td>
+                    <td>@item.UnitPriceSale</td>
+                </tr>
+            }
+            @foreach (var item in lstChiTietDH)
+            {
+                <tr>
+                    <td align="right" colspan="4">Tổng số lượng: @Model.OrderDetails.Sum(n => n.QuantitySale) sản phẩm</td>
+                </tr>
+                if (Model.IdCoupon != null)
+                {
+                    <tr>
+                        <td align="right" colspan="4">Ma coupon ap dung: @Model.Coupon.Name </td>
+                    </tr>
+                    <tr>
+                        <td align="right" colspan="4">Gia tri coupo: @Model.Coupon.Price </td>
+                    </tr>
+                    if (Model.scores == null)
+                    {
+                        <tr>
+                            <td align="right" colspan="4">The thanh vien: Ban chua du dieu kien de len cap </td>
+
+                        </tr>
+                        <tr>
+                            <td align="right" colspan="4">So diem tich luy: @Model.Customer.scores </td>
+                        </tr>
+
+                    }
+                    else if (Model.scores == 1)
+                    {
+                        <tr>
+                            <td align="right" colspan="4">The thanh vien: Cap dong </td>
+                        </tr>
+                        <tr>
+                            <td align="right" colspan="4">So diem tich luy: @Model.Customer.scores </td>
+                        </tr>
+                    }
+                    else if (Model.scores == 2)
+                    {
+                        <tr>
+                            <td align="right" colspan="4">The thanh vien: Cap bac </td>
+                        </tr>
+                        <tr>
+                            <td align="right" colspan="4">So diem tich luy: @Model.Customer.scores </td>
+                        </tr>
+                    }
+                    else if (Model.scores == 3)
+                    {
+                        <tr>
+                            <td align="right" colspan="4">The thanh vien: Cap vang </td>
+                        </tr>
+                        <tr>
+                            <td align="right" colspan="4">So diem tich luy: @Model.Customer.scores </td>
+                        </tr>
+                    }
+                    if (item.UnitPriceSale != null)
+                    {
+                        <tr>
+                            <td align="right" colspan="4">Tổng tiền: @Model.Total đồng</td>
+                        </tr>
+                        <tr>
+                            <td align="right" colspan="4">Tổng tiền sau giam gia: @Model.TotalSuccess đồng</td>
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr>
+                            <td align="right" colspan="4">Tổng tiền:0 đồng</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    if (item.UnitPriceSale != null)
+                    {
+                        <tr>
+                            <td align="right" colspan="4">Tổng tiền: @Model.Total đồng</td>
+                        </tr>
+                        <tr>
+                            <td align="right" colspan="4">Tổng tiền sau giam gia: @Model.TotalSuccess đồng</td>
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr>
+                            <td align="right" colspan="4">Tổng tiền:0 đồng</td>
+                        </tr>
+                    }
+                }
+
+            }
+        </table>
+        <br /><br />
+        <input type="submit" value="Lưu đơn hàng" id="btnInDonHang" class="btn btn-success" />
+        <a class="btn btn-primary " href="@Url.Action("Delivery", "OrderManagement")">Back List</a>
+    </div>
+}
+
+
+

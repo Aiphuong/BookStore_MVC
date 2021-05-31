@@ -1,0 +1,94 @@
+﻿@model IEnumerable<Doan.Models.Order>
+
+@{
+    ViewBag.Title = "MaxPrice";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>MaxPrice</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Customer.Email_Cus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OrderDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Descriptions)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email_Cus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Password_cus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SDT_Cus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Delivery_date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Paid)
+        </th>                                                                                                 
+        <th>
+            @Html.DisplayNameFor(model => model.Cancelled)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Deleted)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Customer.Email_Cus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OrderDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descriptions)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email_Cus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Password_cus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SDT_Cus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Delivery_date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Paid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cancelled)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Deleted)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IDOrder }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IDOrder }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IDOrder })
+        </td>
+    </tr>
+}
+
+</table>

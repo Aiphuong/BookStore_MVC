@@ -1,0 +1,72 @@
+﻿@model IEnumerable<Doan.Models.ViewModel.OrderViewModel>
+@{
+    ViewBag.Title = "ChuaThanhToan";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    WebGrid grid = new WebGrid(source: Model, canPage: false, canSort: false,rowsPerPage: 1);
+}
+
+<h2>Quản lý đơn hàng</h2>
+<br />
+<div class='wrapper text-center'  >
+    <div class="btn-group">
+        <a class="btn btn-default active" href="@Url.Action("Unpaid","OrderManagement")" role="button">Chờ duyệt</a>
+        <a class="btn btn-default" href="@Url.Action("Delivery", "OrderManagement")" role="button">Đã duyệt/Dang giao</a>
+        <a class="btn btn-default " href="@Url.Action("Success", "OrderManagement")" role="button">Đã giao & Đã thanh toán</a>
+        <a class="btn btn-default " href="@Url.Action("Deleted", "OrderManagement")" role="button">Danh sách đơn hàng đã hủy</a>
+    </div>
+    <br />
+    <br />
+
+
+
+    @if (grid.TotalRowCount != 0)
+    {
+        @grid.GetHtml(
+            tableStyle: "table divTable table-bordered",
+            footerStyle: "gridFooter",
+            rowStyle: "gridRow",
+            alternatingRowStyle: "gridAltRow",
+            columns: grid.Columns(
+                grid.Column("IDOrder", "Mã đơn hàng"),
+                grid.Column("CodeCus", "Mã khách hàng"),
+                grid.Column("Status", "Tình trạng giao hàng"),
+                grid.Column("OrderDate", "Ngày đặt"),
+                grid.Column(format: p => @Html.ActionLink("Chi tiet don hang", "OdDetails", new { id = p.IDOrder }, new { @class = "btn btn-success" })),
+                grid.Column(format: p => @Html.ActionLink("Hủy đơn hàng", "HuyDonHang", new { id = p.IDOrder }, new { @class = "btn btn-danger" }))
+            ))
+    }
+    else
+    {
+        <span class="label label-info">Chưa có</span>
+    }
+
+</div>
+<style>
+    .divTable {
+        width: 100%;
+        border: 1px solid #999999;
+        text-align: left;
+    }
+
+        .divTable td {
+        }
+
+    .gridHead {
+        background-color: lightslategray;
+    }
+
+        .gridHead > th > a {
+            color: #fff;
+        }
+
+        .gridHead > th {
+            color: #fff;
+            text-align: center;
+        }
+
+    .gridFooter {
+        font-weight: bold;
+        color: red;
+    }
+</style>
+

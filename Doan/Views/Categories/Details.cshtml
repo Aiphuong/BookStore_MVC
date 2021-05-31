@@ -1,0 +1,38 @@
+﻿@model Doan.Models.Category
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Details</h2>
+<div>
+    <h4>Category</h4>
+    <hr />
+    <div class="row">
+        <div class="col-xs-12 col-md-5">
+            <h3>
+                @Html.DisplayNameFor(model => model.CategoryName) : @Html.DisplayFor(model => model.CategoryName)
+            </h3>
+            <h3>
+                @Html.DisplayNameFor(model => model.CreatedDate) : @Html.DisplayFor(model => model.CreatedDate)
+            </h3>
+            <h3>
+                @Html.DisplayNameFor(model => model.CreatedBy) :  @Html.DisplayFor(model => model.CreatedBy)
+            </h3>
+
+            <div class="col-md-4" style="display: contents;">
+                <a class="btn btn-success" href="/Items/Edit/@Model.CategoryID">Edit</a>
+                <a class="btn btn-danger" href="/Items/Delete/@Model.CategoryID">Delete</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div style="padding-top: 2rem;">
+    @{ Html.RenderAction("ItemDetails", "Categories", new { id = Model.CategoryID });}
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CategoryID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

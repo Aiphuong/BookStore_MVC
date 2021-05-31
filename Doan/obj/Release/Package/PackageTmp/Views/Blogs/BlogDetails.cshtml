@@ -1,0 +1,123 @@
+﻿@model Doan.Models.Blog
+
+@{
+    ViewBag.Title = "BlogDetails";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+@*<h2>BlogDetails</h2>
+
+    <div>
+        <h4>Blog</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Image)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Image)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.MoreImage)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.MoreImage)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Content)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Content)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>*@
+
+        <!-- Start Bradcaump area -->
+        <div class="ht__bradcaump__area bg-image--6">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="bradcaump__inner text-center">
+                            <h2 class="bradcaump-title">Blog Details</h2>
+                            <nav class="bradcaump-content">
+                                <a class="breadcrumb_item" href="/Home/Index">Home</a>
+                                <span class="brd-separetor">/</span>
+                                <span class="breadcrumb_item active">Blog-Details</span>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Bradcaump area -->
+        <div class="page-blog-details section-padding--lg bg--white">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-9 col-12">
+                        <div class="blog-details content" style="position: initial;">
+                            <article class="blog-post-details">
+                                <div class="post-thumbnail">
+                                    <img src="~/Images/@Model.Image" alt="blog images"> 
+                                </div>
+                                <div class="post_wrapper">
+                                    <div class="post_header">
+                                        <h2>@Html.DisplayFor(model => model.Title)</h2>
+                                        <ul class="post_author">
+                                            <li>Posts by : @Html.DisplayFor(model => model.CreateBy)</li>
+                                            <li class="post-separator">/</li>
+                                            <li>@Html.DisplayFor(model => model.CreateDate)</li>
+                                        </ul>
+                                    </div>
+                                    <div class="post_content">
+                                        <p>@Html.DisplayFor(model => model.Content)</p>
+
+                                        <blockquote>@Html.DisplayFor(model => model.Content)</blockquote>
+
+                                        <p>@Html.DisplayFor(model => model.Content2)</p>
+
+                                        <p>	@Html.DisplayFor(model => model.Content3)</p>
+
+                                    </div>
+                                    <ul class="blog_meta">
+                                        <li><a href="#">comments</a></li>
+                                        <li> / </li>
+                                        <li>Tags:<span>book</span> <span>blog</span></li>
+                                    </ul>
+                                    <ul class="social__net--4 d-flex justify-content-start">
+                                        <li><a href="#"><i class="zmdi zmdi-rss"></i></a></li>
+                                        <li><a href="#"><i class="zmdi zmdi-linkedin"></i></a></li>
+                                        <li><a href="#"><i class="zmdi zmdi-vimeo"></i></a></li>
+                                        <li><a href="#"><i class="zmdi zmdi-tumblr"></i></a></li>
+                                        <li><a href="#"><i class="zmdi zmdi-google-plus"></i></a></li>
+                                    </ul>
+                                </div>
+                            </article>
+                            <div class="comments_area">
+                                <h3 class="comment__title">Comment</h3>
+                                <iframe src="https://www.facebook.com/v3.2/plugins/comments.php?app_id=363772567412181&amp;href=https%3A%2F%2Fwww.facebook.com%2Fphoto?fbid=170955753239569&set=a.106286559706489
+                                                    " style="border: none; visibility: visible; width: 100%; height: 600px; overflow: auto;" class=""></iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                               

@@ -1,0 +1,302 @@
+﻿@{
+
+    var session = (Doan.Models.Common.UserLogin)Session[Doan.Models.Common.CommonConstants.USER_SESSION];
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>Light Bootstrap Dashboard by Creative Tim</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <link href="/Static/admin/css/animate.min.css" rel="stylesheet" />
+    <link href="/Static/admin/css/light-bootstrap-dashboard.css" rel="stylesheet" />
+    <link href="/Static/admin/css/demo.css" rel="stylesheet" />
+
+    @Styles.Render("/Content/css")
+    @Scripts.Render("/bundles/modernizr")
+
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+    <link href="/Static/admin/css/pe-icon-7-stroke.css" rel="stylesheet" />
+    <link href="/Static/admin/style.css" rel="stylesheet" />
+    <link href="/Static/user/home/css/style.css" rel="stylesheet" />
+    <link href="/Static/admin/css/light-bootstrap-dashboard.css" rel="stylesheet" />
+
+
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="sidebar" data-color="purple" data-image="Static/img/sidebar-5.jpg">
+            <div class="sidebar-wrapper">
+                <div class="logo">
+                    <a href="http://www.creative-tim.com" class="simple-text">
+                        PHEONIX
+                    </a>
+                </div>
+
+                <ul class="nav">
+                    <li class="nav nav-item">
+                        <a href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+                            <i class="pe-7s-graph"></i>
+                            <span>Product </span>
+                        </a>
+                        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                            <div class="bg-white py-2 collapse-inner rounded" style="background-color: currentColor; padding-left: 65px; border: 1px solid black; border-radius: 10px; width: 216px; margin-left: 30px;">
+                                <a style="color: mediumpurple;" class="nav collapse-item" href="/ProductS/Index">Danh mục sản phẩm</a>
+                                <a style="color: mediumpurple;" class="nav collapse-item" href="/Categories/Index">Danh mục loại sản phẩm</a>
+                                <a style="color: mediumpurple;" class="nav collapse-item" href="/Suppliers/Index">Danh mục nhà cung cấp</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="/IVCs/Create">
+                            <i class="pe-7s-drawer"></i>
+                            <p>Stock </p>
+                        </a>
+                    </li>
+                    <li>
+                    <li>
+                        <a href="/Users/Index">
+                            <i class="pe-7s-user"></i>
+                            <p>User </p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Contacts/Index">
+                            <i class="pe-7s-bell"></i>
+                            <p>Notifications</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Customers/Index">
+
+                            <i class="pe-7s-user"></i>
+                            <p>Customer</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Slides/Index">
+                            <i class="pe-7s-photo"></i>
+                            <p>Slide</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Blogs/Index">
+                            <i class="pe-7s-notebook"></i>
+                            <p>Blog</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Coupons/Index">
+                            <i class="pe-7s-cash"></i>
+                            <p>Coupon</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Shipping_unit/Index">
+                            <i class="pe-7s-car"></i>
+                            <p>Shipping unit</p>
+                        </a>
+                    </li>
+                    <li class="nav nav-item">
+                        <a href="#" data-toggle="collapse" data-target="#collapseUtiliti2" aria-expanded="true" aria-controls="collapseUtilities2">
+                            <i class="pe-7s-news-paper"></i>
+                            <span>Bill</span>
+                        </a>
+                        <div id="collapseUtiliti2" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                            <div class="bg-white py-2 collapse-inner rounded" style="background-color: currentColor; padding-left: 65px; border: 1px solid black; border-radius: 10px; width: 216px; margin-left: 30px;">
+                                <a style="color: mediumpurple;" class="nav collapse-item" href="/OrderManagement/AllBill">Tat ca don hang</a>
+                                <a style="color: mediumpurple;" class="nav collapse-item" href="/Statistical/DonCongNo">Don Hang con cong no</a>
+                                <a style="color: mediumpurple;" class="nav collapse-item" href="/Statistical/DonDaThu">Don Hang da hoan thanh thu tien</a>
+                                <a style="color: mediumpurple;" class="nav collapse-item" href="/Statistical/DonDaHuy">Don Hang da huy</a>
+                                <a style="color: mediumpurple;" class="nav collapse-item" href="/OrderManagement/Unpaid">Quan ly don hang</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav nav-item">
+                        <a href="#" data-toggle="collapse" data-target="#collapseUtiliti" aria-expanded="true" aria-controls="collapseUtilities">
+                            <i class="pe-7s-portfolio"></i>
+                            <span>Statistical</span>
+                        </a>
+                        <div id="collapseUtiliti" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                            <div class="bg-white py-2 collapse-inner rounded" style="background-color: currentColor; padding-left: 65px; border: 1px solid black; border-radius: 10px; width: 216px; margin-left: 30px;">
+                                <a style="color: mediumpurple;" class="nav collapse-item" href="/Statistical/Index">Thong ke chung</a>
+                                <a style="color: mediumpurple;" class="nav collapse-item" href="/Statistical/BestSale">Sản phẩm bán chạy</a>
+                                <a style="color: mediumpurple;" class="nav collapse-item" href="/Statistical/spsaphet">Sản phẩm sắp hết</a>
+                                <a style="color: mediumpurple;" class="nav collapse-item" href="/Statistical/sphethang">Sản phẩm đã hết</a>
+                                <a style="color: mediumpurple;" class="nav collapse-item" href="/Statistical/hoadontheongay">Doanh thu</a>
+                                <a style="color: mediumpurple;" class="nav collapse-item" href="/Statistical/doanhthutheongay">Hóa đơn</a>
+                            </div>
+                        </div>
+                    </li>
+
+                    @*<li class="active-pro">
+            <a href="upgrade.html">
+                <i class="pe-7s-rocket"></i>
+                <p>Upgrade to PRO</p>
+            </a>
+        </li>*@
+                </ul>
+            </div>
+        </div>
+        <div class="main-panel">
+            <nav class="navbar navbar-default navbar-fixed">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse"
+                                data-target="#navigation-example-2">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        @*<a class="navbar-brand" href="#">Dashboard</a>*@
+                    </div>
+                    <div class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav navbar-left">
+                            @*<li>
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        <i class=" glyphicon glyphicon-dashboard"></i>
+                                        <p class="hidden-lg hidden-md">Dashboard</p>
+                                    </a>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        <i class="glyphicon glyphicon-globe"></i>
+                                        <b class="caret hidden-lg hidden-md"></b>
+                                        <p class="hidden-lg hidden-md">
+                                            5 Notifications
+                                            <b class="caret"></b>
+                                        </p>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">Notification 1</a></li>
+                                        <li><a href="#">Notification 2</a></li>
+                                        <li><a href="#">Notification 3</a></li>
+                                        <li><a href="#">Notification 4</a></li>
+                                        <li><a href="#">Another notification</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="">
+                                        <i class="glyphicon glyphicon-search"></i>
+                                        <p class="hidden-lg hidden-md">Search</p>
+                                    </a>
+                                </li>*@
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            @if (session == null)
+                            {
+                            }
+                            else
+                            {
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+
+                                        <p>
+                                            Account:@session.UserName
+                                            <b class="caret"></b>
+                                        </p>
+
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/Customers/Details/@session.UserID">My Account</a></li>
+                                        @*<li><a href="#">Another action</a></li>
+                                            <li><a href="#">Something</a></li>
+                                            <li><a href="#">Another action</a></li>
+                                            <li><a href="#">Something</a></li>
+                                            <li class="divider"></li>*@
+                                        <li><a href="@Url.Action("Logout","Login")" class="btn btn-warning">Logout</a></li>
+                                    </ul>
+                                </li>
+                            }
+                            <li class="separator hidden-lg"></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <div class="content">
+                <div class="container" style="height:auto;">
+                    @RenderBody()
+
+                </div>
+                <footer class="footer">
+                    <div class="container-fluid">
+                        <nav class="pull-left">
+                            <ul>
+                                <li>
+                                    <a href="#">
+                                        Home
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        Company
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        Portfolio
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        Blog
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                        <p class="copyright pull-right">
+                            &copy;
+                            <script>document.write(new Date().getFullYear())</script> <a href="http://www.creative-tim.com">Creative Tim</a>, made with love for a better web
+                        </p>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+    <script src="/Static/admin/js/chartist.min.js"></script>
+    <script src="/Static/admin/js/bootstrap-select.js"></script>
+
+    <script src="/Static/admin/js/bootstrap-notify.js"></script>
+    <script src="/Static/admin/js/jquery.3.2.1.min.js"></script>
+
+    <script src="/Static/admin/js/light-bootstrap-dashboard.js"></script>
+
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+
+    <script src="/Static/admin/js/demo.js"></script>
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            demo.initChartist();
+            $.notify({
+                icon: 'pe-7s-gift',
+                message: "Welcome to <b>Light Bootstrap Dashboard</b> - a beautiful freebie for every web developer."
+            }, {
+                type: 'info',
+                timer: 4000
+            });
+        });
+    </script>
+</body>
+@Scripts.Render("/bundles/jquery")
+@Scripts.Render("/bundles/bootstrap")
+@RenderSection("scripts", required: false)
+<script src="/Static/user/home/js/plugins.js"></script>
+<script src="/Static/user/home/js/active.js"></script>
+</html>
+
+
+
+
+

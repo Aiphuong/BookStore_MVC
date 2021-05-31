@@ -1,0 +1,51 @@
+﻿@model Doan.Models.Shipping
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Shipping</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Shipping_Unit.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Shipping_Unit.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Total)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Total)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Shipping_fee)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Shipping_fee)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IDShip }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,267 @@
+﻿@using Doan.Models
+@{
+    var session = (Doan.Models.Common.UserLogin)Session[Doan.Models.Common.CommonConstants.USER_SESSION];
+    Db_Doan db = new Db_Doan();
+    var cate = db.Categories.ToList();
+    var catelst = cate as IEnumerable<Category>;
+    var supplier = db.Suppliers.ToList();
+    var supplierlst = supplier as IEnumerable<Supplier>;
+}
+
+
+<!doctype html>
+<html class="no-js" lang="zxx">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Home | Bookshop Responsive Bootstrap4 Template - SHARED ON THEMELOCK.COM</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Favicons -->
+    <link rel="shortcut icon" href="/Static/user/home/images/favicon.ico" />
+    <link rel="apple-touch-icon" href="/Static/user/home/images/icon.png">
+
+    <!-- Google font (font-family: 'Roboto', sans-serif; Poppins ; Satisfy) -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,500,600,600i,700,700i,800" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link href="/Static/user/home/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/Static/user/home/css/plugins.css" rel="stylesheet" />
+    <link href="/Static/user/home/css/style.css" rel="stylesheet" />
+    <link href="/Static/user/home/css/custom.css" rel="stylesheet" />
+    <link href="/Static/user/home/css/animation.css" rel="stylesheet" />
+
+
+    <!-- Cusom css -->
+    <!-- Modernizer js -->
+    <script src="/Static/user/home/js/vendor/modernizr-3.5.0.min.js"></script>
+</head>
+<body>
+    <div class="wrapper" id="wrapper">
+        <!-- Header -->
+        <header id="wn__header" class="header__area header__absolute sticky__header">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-6 col-lg-2">
+                        <div class="logo">
+                            <a href="index.html">
+                                <img src="/Static/user/home/images/logo/logo.png" alt="logo images" />
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-8 d-none d-lg-block">
+                        @{ Html.RenderAction("Menu", "Home");}
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-6 col-lg-2">
+                        <ul class="header__sidebar__right d-flex justify-content-end align-items-center">
+                            <li class="shop_search"><a class="search__active" href="#"></a></li>
+                            <li class="wishlist">
+                                <a href="/WL/ShowToGetWhishList">@*<span class="product_qun"></span>*@</a>
+                                @Html.Action("BagWhishList", "WL")
+                            </li>
+                            <li class="shopcart">
+                                <a class="cartbox_active" href="/ShoopingCart/ShowToCart">@*<span class="product_qun"></span>*@</a>
+                                @Html.Action("BagCart", "ShoppingCart")
+
+                                <!-- Start Shopping Cart -->
+                                <div class="block-minicart minicart__active">
+                                    @{ Html.RenderAction("CartShowMenu", "ShoppingCart");}
+                                </div>
+
+                            </li>
+                            @if (session == null)
+                            {
+                                <li class="setting__bar__icon">
+                                    <a class="setting__active" href="#"></a>
+                                    <div class="searchbar__content setting__block">
+                                        <div class="content-inner">
+                                            <div class="switcher-currency">
+                                                <strong class="label switcher-label">
+                                                    <span>Log in</span>
+                                                </strong>
+                                                <div class="switcher-options">
+                                                    <div class="switcher-currency-trigger">
+                                                        <div class="setting__menu">
+                                                            <span><a href="/Login/Index">Login with admin</a></span>
+                                                            <span><a href="/Login/LoginCus">Login with customer</a></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                               
+                            }
+                            else
+                            {
+                                <li class="setting__bar__icon">
+                                    <a class="setting__active" href="#"></a>
+                                    <div class="searchbar__content setting__block">
+                                        <div class="content-inner">
+                                            <div class="switcher-currency">
+                                                <strong class="label switcher-label">
+                                                    <span>Xin chào:@session.UserName</span>
+                                                </strong>
+                                            </div>
+                                            <div class="switcher-currency">
+                                                <strong class="label switcher-label">
+                                                    <span>My Account</span>
+                                                </strong>
+                                                <div class="switcher-options">
+                                                    <div class="switcher-currency-trigger">
+                                                        <div class="setting__menu">
+                                                            <span><a href="/Customers/Details/@session.UserID">My Account</a></span>
+                                                            <span><a href="/Customers/Bill/@session.UserID">My Bill</a></span>
+                                                            <span><a href="/Customers/History/@session.UserID">My History</a></span>
+                                                            <span><a href="/Customers/Score/@session.UserID">My Score</a></span>
+                                                            <span><a href="@Url.Action("Logout","ShoppingCart")">Log out</a></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+
+                        </ul>
+                    </div>
+                </div>
+                <!-- Start Mobile Menu -->
+                <div class="row d-none">
+                    <div class="col-lg-12 d-none">
+                        <nav class="mobilemenu__nav">
+                            <ul class="meninmenu">
+                                <li>
+                                    <a href="@Url.Action("IndexUser","Home")">Home</a>
+                                </li>
+                                <li>
+                                    <a href="#">Shop</a>
+
+                                </li>
+                                <li>
+                                    <a href="#l">Books</a>
+                                    <div class="megamenu mega03">
+                                        <ul class="item item03">
+                                            @foreach (var item in catelst)
+                                            {
+                                                <li><a href="/Home/ProductList/@item.CategoryID">@Html.DisplayFor(modelItem => item.CategoryName) </a></li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li>
+                                    <a href="#l">Supplier</a>
+                                    <div class="megamenu mega03">
+                                        <ul class="item item03">
+                                            @foreach (var item in supplierlst)
+                                            {
+                                                <li><a href="/Home/ProductListWithSupplier/@item.SupplierID">@Html.DisplayFor(modelItem => item.SupplierName) </a></li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li>
+                                    <a href="blog.html">Blog</a>
+                                </li>
+                                <li><a href="@Url.Action("Index","Contacts")">Contact</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <!-- End Mobile Menu -->
+                <div class="mobile-menu d-block d-lg-none">
+                </div>
+                <!-- Mobile Menu -->
+            </div>
+        </header>
+            <div class="brown--color box-search-content search_active block-bg close__top">
+                <form id="search_mini_form" class="minisearch" action="#">
+                    <div class="field__search">
+                        @using (Html.BeginForm("IndexUser", "Home"))
+                        {
+                            @Html.TextBox("searchString1", null, new { @placeholder = "Search With Product Name" })
+                        <div class="action">
+                            <button style="background: none; border: none; color: white; font-size: 25px; padding-top: 15px;" 
+                                    class="zmdi zmdi-search" 
+                                    name="searchString" 
+                                    type="submit" 
+                                    value="search" />
+                        </div>
+                        
+                        }
+                    </div>
+                </form>
+                <div class="close__wrap">
+                    <span>close</span>
+                </div>
+            </div>
+        
+
+        <!-- //Header -->
+        <div>
+            @RenderBody()
+
+        </div>
+
+        <footer id="wn__footer" class="footer__area bg__cat--8 brown--color">
+            <div class="footer-static-top">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="footer__widget footer__menu">
+                                <div class="ft__logo">
+                                    <a href="index.html">
+                                        <img src="/Static/user/home/images/logo/3.png" alt="logo" style="width: 20%;" />
+                                    </a>
+                                    <p>...</p>
+                                </div>
+                                <div class="footer__content">
+                                    <ul class="social__net social__net--2 d-flex justify-content-center">
+                                        <li><a href="https://www.facebook.com/aii.phuong.25/"><i class="bi bi-facebook"></i></a></li>
+                                        <li><a href="https://mail.google.com/mail/u/0/"><i class="bi bi-google"></i></a></li>
+                                        <li><a href="https://www.youtube.com/"><i class="bi bi-youtube"></i></a></li>
+                                    </ul>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright__wrapper">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="copyright">
+                                <div class="copy__right__inner text-left">
+                                    <p>Copyright <i class="fa fa-copyright"></i> <a href="#">Boighor.</a> All Rights Reserved</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="payment text-right">
+                                <img src="images/icons/payment.png" alt="" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- //Footer Area -->
+        <!-- QUICKVIEW PRODUCT -->
+
+    </div>
+    <!-- //Main wrapper -->
+    <!-- JS Files -->
+    <script src="/Static/user/home/js/vendor/jquery-3.2.1.min.js"></script>
+    <script src="/Static/user/home/js/popper.min.js"></script>
+    <script src="/Static/user/home/js/bootstrap.min.js"></script>
+    <script src="/Static/user/home/js/plugins.js"></script>
+    <script src="/Static/user/home/js/active.js"></script>
+</body>
+</html>

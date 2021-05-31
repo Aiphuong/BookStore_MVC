@@ -1,0 +1,64 @@
+﻿@model Doan.Models.User
+
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="~/Static/Login.css" rel="stylesheet" />
+</head>
+<body>
+    @using (Html.BeginForm("Login", "Login", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div class="container">
+            <div class="signin-content">
+                <div class="signin-image">
+                    <figure>
+                        <img src="~/Images/signup-image.jpg" alt="sing up image">
+                    </figure>
+                    <a class="signup-image-link" href="@Url.Action("Register","Login")"><span>Register</span></a>
+                </div>
+
+                <div class="signin-form">
+                    <h2 class="form-title">Login</h2>
+                    <form method="POST" class="register-form" id="login-form">
+                        <div class="form-group">
+                            @Html.TextBoxFor(model => model.UserName, new {placeholder = "UserName", @class = "form-control", @autofocus = "autofocus" })
+                            @Html.ValidationMessageFor(m => m.UserName)
+                            <label for="your_name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+
+                        </div>
+                        <div class="form-group">
+                            <label for="your_pass"><i class="zmdi zmdi-lock"></i></label>
+                            @Html.PasswordFor(model => model.Password, new {placeholder = "Password", @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Password)
+                        </div>
+                        <div class="form-group">
+                            @if (ViewBag.error != null)
+                            {
+                                <span class="badge badge-danger">@ViewBag.error</span>
+                            }
+                        </div>
+                        @*<div class="form-group">
+                            <input type="checkbox" name="remember-me" id="remember-me" class="agree-term" />
+                            <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember me</label>
+                        </div>*@
+                        <div class="form-group form-button">
+                            <input type="submit" name="signin" id="signin" class="form-submit" value="Log in" />
+                        </div>
+                    </form>
+                  
+                </div>
+
+            </div>
+        </div>
+    }
+
+
+</body>
+</html>

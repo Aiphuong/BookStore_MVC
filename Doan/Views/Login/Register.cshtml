@@ -1,0 +1,64 @@
+﻿@model Doan.Models.User
+
+@{
+    ViewBag.Title = "Register";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="~/Static/Login.css" rel="stylesheet" />
+</head>
+<body>
+        <div class="container">
+            <div class="signup-content">
+                @using (Html.BeginForm("Register", "Login", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="signup-form" style="width: 250px;">
+                        <h2 class="form-title">Sign up</h2>
+                        <form method="POST" class="register-form" id="register-form">
+                            <div class="form-group">
+                                <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                @Html.TextBoxFor(m => m.UserName, new { placeholder = "UserName", style = "border-bottom: solid 1px;" })
+                                @Html.ValidationMessageFor(m => m.UserName)
+                            </div>
+
+                            <div class="form-group">
+                                <label for="pass"><i class="zmdi zmdi-lock"></i></label>
+                                @Html.PasswordFor(m => m.Password, new { placeholder = "Password", style = "border-bottom: solid 1px;" })
+                                @Html.ValidationMessageFor(m => m.Password)
+                            </div>
+                            <div class="form-group">
+                                <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
+                                @Html.PasswordFor(m => m.ConfirmPassword, new { placeholder = "ConfirmPassword", style = "border-bottom: solid 1px;" })
+                                @Html.ValidationMessageFor(m => m.ConfirmPassword)
+                            </div>
+                            <div class="form-group">
+                                <label for="email"><i class="zmdi zmdi-email"></i></label>
+                                @Html.TextBoxFor(m => m.Email, new { placeholder = "Email", style = "border-bottom: solid 1px;" })
+                                @Html.ValidationMessageFor(m => m.Email)
+                            </div>
+                            <div class="form-group">
+                                @if (ViewBag.error != null)
+                                {
+                                    <span class="field-validation-error">@ViewBag.error</span>
+                                }
+                            </div>
+                            <div class="form-group form-button">
+                                <input type="submit" name="signup" id="signup" class="form-submit" value="Register" />
+                            </div>
+                        </form>
+                    </div>
+                }
+                    <div class="signup-image">
+                        <figure><img src="~/Images/signup-image.jpg" alt="sing up image"></figure>
+                        <a class="signup-image-link" href="@Url.Action("Index","Login")"><span>Login</span></a>
+                    </div>
+                </div>
+        </div>
+    
+    </body>
+    
+</html>

@@ -1,0 +1,14 @@
+﻿@model IEnumerable<Doan.Models.Supplier>
+
+@{
+    ViewBag.Title = "SuppliersList";
+    Layout = null;
+}
+
+@foreach (var item in Model)
+{
+    <ul>
+        <li><a href="/Home/ProductListWithSupplier/@item.SupplierID"> @Html.DisplayFor(modelItem => item.SupplierName) <span></span></a></li>
+    </ul>
+}
+

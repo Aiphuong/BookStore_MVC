@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Doan.Models.ViewModel.History>
+@{
+    ViewBag.Title = "ShowToCart";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+
+}
+
+<head>
+    <style>
+        input {
+            border-radius: 3px;
+            margin-top: 2px;
+        }
+
+        button {
+            margin-top: 2px;
+        }
+    </style>
+</head>
+
+<div style="margin-top:10em;"></div>
+<div class="ht__bradcaump__area bg-image--3">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="bradcaump__inner text-center">
+                    <h2 class="bradcaump-title">Account</h2>
+                    <nav class="bradcaump-content">
+                        <a class="breadcrumb_item" href="/Home/Index">Home</a>
+                        <span class="brd-separetor">/</span>
+                        <span class="breadcrumb_item active">San pham da mua</span>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@if (Model != null)
+{<div class="cart-main-area section-padding--lg bg--white">
+        <div class="container-fluid">
+            <div class="table-content wnro__table table-responsive" style="padding: 35px 20px 5px 20px;">
+                <table id="myTableBS table-cate" class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th style="font-weight:bold;">Product Name</th>
+                            <th style="font-weight:bold;">Image</th>
+                            <th style="font-weight:bold;">Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ProductName)
+                                </td>
+                                <td>
+                                    <img src="~/Images/@item.Image" style="width:50px; height:50px" />
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Price)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}
